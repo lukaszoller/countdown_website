@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <!-- Add any CSS styles here if needed -->
+    <link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Container for the countdown timer -->
+    <div id="container">
+        <div id="countdown"></div>
+        <div id="wallet-address">Donate BTC: 3KhEdCqb9Lr9S2z1qgVWTybuWBNGrY4jBu</div>
+    </div>
+    <script>
+        // Function to start the countdown
+        function startCountdown() {
+            // Calculate random time between 1 minute and 8 days in milliseconds
+            var minTime = 6000; // 1 minute in milliseconds
+            var maxTime = 8000 // for testing
+            var maxTime = 8 * 24 * 60 * 60 * 1000; // 8 days in milliseconds
+            var duration = Math.floor(Math.random() * (maxTime - minTime + 1)) + minTime;
+
+            // Function to format the countdown timer
+            function formatTime(ms) {
+                var days = Math.floor(ms / (24 * 60 * 60 * 1000));
+                var hours = Math.floor((ms % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+                var minutes = Math.floor((ms % (60 * 60 * 1000)) / (60 * 1000));
+                var seconds = Math.floor((ms % (60 * 1000)) / 1000);
+
+                // Add leading zeros if necessary
+                days = (days < 10 ? '0' : '') + days;
+                hours = (hours < 10 ? '0' : '') + hours;
+                minutes = (minutes < 10 ? '0' : '') + minutes;
+                seconds = (seconds < 10 ? '0' : '') + seconds;
+
+                return days + ':' + hours + ':' + minutes + ':' + seconds;
+            }
+
+            // Display the initial countdown value
+            document.getElementById('countdown').innerText = formatTime(duration);
+
+            // Update the countdown every second
+            var timer = setInterval(function() {
+                duration -= 1000; // Subtract 1 second
+                if (duration < 0) {
+                    clearInterval(timer); // Stop the timer when countdown reaches 0
+                    document.getElementById('countdown').innerText = '00:00:00:00';
+                    // Flash red for 10 seconds
+                    var flashRedInterval = setInterval(function() {
+                        var countdownElement = document.getElementById('countdown');
+                        countdownElement.style.color = (countdownElement.style.color === 'red' ? '' : 'red');
+                    }, 500);
+                    setTimeout(function() {
+                        clearInterval(flashRedInterval);
+                        startCountdown(); // Restart the countdown
+                    }, 10000);
+                } else {
+                    document.getElementById('countdown').innerText = formatTime(duration);
+                }
+            }, 1000);
+        }
+
+        // Start the countdown when the page loads
+        window.onload = startCountdown;
+    </script>
+</body>
+</html>

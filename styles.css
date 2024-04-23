@@ -1,0 +1,30 @@
+/* styles.css */
+
+/* Center the container */
+#container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+/* Style for the countdown timer */
+#countdown {
+    font-family: "Courier Prime", monospace;
+    font-size: 56px;
+    color: #333;
+    font-weight: bold; /* Make the numbers bold */
+}
+
+/* Style for the additional text */
+#wallet-address {
+    font-family: "Courier Prime", monospace;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Add some padding */
+body {
+    padding: 20px;
+}
